@@ -111,8 +111,8 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     <wire from="(1320,320)" to="(1320,370)"/>
     <wire from="(1320,240)" to="(1320,300)"/>
     <wire from="(970,340)" to="(970,440)"/>
-    <wire from="(460,80)" to="(460,380)"/>
     <wire from="(20,270)" to="(40,270)"/>
+    <wire from="(30,500)" to="(50,500)"/>
     <wire from="(500,320)" to="(500,360)"/>
     <wire from="(480,100)" to="(480,140)"/>
     <wire from="(930,370)" to="(1320,370)"/>
@@ -136,10 +136,14 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     <wire from="(1320,300)" to="(1360,300)"/>
     <wire from="(1320,320)" to="(1360,320)"/>
     <wire from="(610,170)" to="(670,170)"/>
+    <wire from="(50,290)" to="(50,500)"/>
     <wire from="(1130,300)" to="(1320,300)"/>
     <wire from="(1600,290)" to="(1650,290)"/>
     <wire from="(550,120)" to="(550,150)"/>
+    <wire from="(460,80)" to="(460,160)"/>
     <wire from="(540,390)" to="(540,790)"/>
+    <wire from="(460,160)" to="(460,380)"/>
+    <wire from="(460,160)" to="(500,160)"/>
     <wire from="(610,170)" to="(610,790)"/>
     <wire from="(440,60)" to="(650,60)"/>
     <wire from="(440,80)" to="(460,80)"/>
@@ -202,6 +206,10 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
       <a name="size" val="30"/>
       <a name="inputs" val="2"/>
     </comp>
+    <comp lib="0" loc="(30,500)" name="Clock">
+      <a name="label" val="Clk"/>
+      <a name="labelloc" val="south"/>
+    </comp>
     <comp lib="4" loc="(1500,300)" name="RAM">
       <a name="addrWidth" val="4"/>
       <a name="dataWidth" val="4"/>
@@ -225,10 +233,6 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     </comp>
     <comp lib="8" loc="(540,150)" name="Adder">
       <a name="width" val="4"/>
-    </comp>
-    <comp lib="0" loc="(40,470)" name="Clock">
-      <a name="label" val="Clk"/>
-      <a name="labelloc" val="south"/>
     </comp>
     <comp lib="8" loc="(1100,300)" name="MIPS ALU 4-bit"/>
     <comp lib="6" loc="(1081,802)" name="Text">
