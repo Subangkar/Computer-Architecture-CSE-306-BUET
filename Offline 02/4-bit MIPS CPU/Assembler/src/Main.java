@@ -2,12 +2,10 @@ import java.util.*;
 
 public class Main {
     
-    public static final String inputFile = "Mips_Assignment2_Input.asm";
-    public static final String outputFile = "Mips_Assignment2_Output.bin";
-    
-    static Scanner sc = new Scanner(System.in);
-
-    static void p(String s) {
+    static final String inputFile = "Instructions.asm";
+    static final String outputFile = "MachineCodes.bin";
+	
+	private static void p( String s ) {
         System.out.println(s);
     }
 
@@ -15,12 +13,13 @@ public class Main {
 
         String str = Loader.loadLinesOfCode();
         System.out.println(str);
-        List<String> list = Loader.loadArray(str);
+	    assert str != null;
+	    List<String> list = Loader.loadArray(str);
         List<String> finalList = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            String res = run2(list.get(i));
-            finalList.add(res);
-        }
+	    for (String aList : list) {
+		    String res = run2( aList );
+		    finalList.add( res );
+	    }
         System.out.println("\n\n---------------------------------*********------------------------------");
         printList(finalList);
         Loader.writeList(finalList);
@@ -34,7 +33,7 @@ public class Main {
         System.out.println(hexStr);
     }//i added this for padding
 
-    static String run2(String str) {
+    private static String run2( String str ) {
 //        str = "add s1, s2, s4";
 //        str = "sub s1, s2, s3";
 //        str = "addi s3, s5, 7";
@@ -65,7 +64,7 @@ public class Main {
         return null;
     }
 
-    static String RItype(String[] arr) {
+    private static String RItype( String[] arr ) {
         String op = arr[0];
         String[] opArr = op.split(" ");
 
@@ -77,7 +76,7 @@ public class Main {
         return printBinary(operation, reg1, reg2, reg3);
     }
 
-    static String printBinary(String op, String reg1, String reg2, String reg3) {
+    private static String printBinary( String op , String reg1 , String reg2 , String reg3 ) {
         //p(op + " BIN " + reg1 + " BIN " + reg2 + " BIN " + reg3);
         String opBin = "";
         int opCode = -1;
@@ -94,7 +93,7 @@ public class Main {
             opCode = 3;
             // opBin = "0011";
         }
-        if (!reg3.contains( "s" )) {
+        if (!reg3.contains( "$" )) {
             //I_TYPE
 //            System.out.println("THIS IS I TYPE");
             if (op.contains("addi")) {
@@ -136,7 +135,7 @@ public class Main {
 
         bin2 = getBinary4Bits(bin2);
 
-        if (reg3.contains("s")) {
+        if (reg3.contains("$")) {
             val = reg3.charAt(1);
             arr[0] = val;
             bin3 = new String(arr);
@@ -168,7 +167,7 @@ public class Main {
         return hexStr;
     }
 
-    static String LoadOrStore(String[] arr) {
+    private static String LoadOrStore( String[] arr ) {
 //        System.out.println("THIS IS LOAD OR STORE");
 
         for (int i = 0; i < arr.length; i++) {
@@ -197,11 +196,11 @@ public class Main {
 
 //        System.out.println("Dest Reg Number: " + firstReg.charAt(1));
 //        System.out.println("BaseReg Number : " + c.get(0));
-        String offset = "";
+        StringBuilder offset = new StringBuilder();
 
 //        for(int i=arr[1].length() - 5; i >= 0; i--){
         for (int i = 0; i <= arr[1].length() - 5; i++) {
-            offset += arr[1].charAt(i);
+            offset.append( arr[1].charAt( i ) );
         }
 //
 //        System.out.println("Offset : " + offset);
@@ -212,7 +211,7 @@ public class Main {
         int baseReg = c.get(0) - '0';
         String baseRegString = getBinary(baseReg);
 
-        offset = getBinary(Integer.parseInt(offset));
+        offset = Optional.ofNullable( getBinary( Integer.parseInt( offset.toString() ) ) ).map( StringBuilder::new ).orElse( null );
 
         String opCodeString = getBinary(opCode);
 
@@ -294,18 +293,19 @@ public class Main {
         } else {
             int len = s.length();
             int numrem = 4 - len;
-            String str = "";
-            for (int i = 0; i < numrem; i++) {
-                str += "0";
+	        StringBuilder strBuilder = new StringBuilder();
+	        for (int i = 0; i < numrem; i++) {
+                strBuilder.append( "0" );
             }
-            str += s;
+	        String str = strBuilder.toString();
+	        str += s;
 //            System.out.print(str + "");
             return str;
         }
 
     }
 
-    static String getBinary(String bin3) {
+    private static String getBinary( String bin3 ) {
         try {
             int n = Integer.parseInt(bin3);
             bin3 = Integer.toString(n, 2);
@@ -317,27 +317,26 @@ public class Main {
         return bin3;
     }
 
-    static String getBinary(int n) {
+    private static String getBinary( int n ) {
         String bin3 = Integer.toString(n, 2);
         bin3 = getBinary4Bits(bin3);
         return bin3;
     }
 
-    static String getHex(String bin) {
+    private static String getHex( String bin ) {
         int decimal = Integer.parseInt(bin, 2);
-        String hexStr = Integer.toString(decimal, 16);
-        return hexStr;
+	    return Integer.toString(decimal, 16);
     }
 
     private static String getSpaced(String full) {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         for (int i = 0; i < full.length(); i++) {
             if ((i % 4 == 0) && (i > 1)) {
-                str += " ";
+                str.append( " " );
             }
-            str += full.charAt(i);
+            str.append( full.charAt( i ) );
         }
-        return str;
+        return str.toString();
     }
 
     private static void printList(List<String> finalList) {

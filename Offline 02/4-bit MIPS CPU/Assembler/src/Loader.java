@@ -19,7 +19,7 @@ public class Loader {
         return "^";
     }
 
-    public static String loadCode() throws Exception {
+    private static String loadCode() throws Exception {
         File file = new File(Main.inputFile);
 
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -35,7 +35,7 @@ public class Loader {
         return str.toString();
     }
 
-    public static String loadLinesOfCode() {
+    static String loadLinesOfCode() {
         try {
             return loadCode();
             /*BufferedReader br = null;
