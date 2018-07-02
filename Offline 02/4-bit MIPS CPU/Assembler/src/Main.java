@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Main {
-
+    
     public static final String inputFile = "Mips_Assignment2_Input.asm";
     public static final String outputFile = "Mips_Assignment2_Output.bin";
     
@@ -136,7 +136,7 @@ public class Main {
 
         bin2 = getBinary4Bits(bin2);
 
-        if (reg3.length() == 2) {
+        if (reg3.contains("s")) {
             val = reg3.charAt(1);
             arr[0] = val;
             bin3 = new String(arr);
@@ -149,9 +149,13 @@ public class Main {
         bin3 = Integer.toString(n, 2);
 
         bin3 = getBinary4Bits(bin3);
-
+        String full="";
 //        String full = opBin + bin1 + bin2 + bin3;
-        String full = opBin + bin2 + bin3 + bin1;
+        if (op.contains("addi") || op.contains("ori") || op.contains("andi") || op.contains("subi")){
+            full = opBin + bin2 +  bin1+bin3;
+        }
+        else
+            full = opBin + bin2 + bin3 + bin1;
 
         int decimal = Integer.parseInt(full, 2);
         String hexStr = Integer.toString(decimal, 16);
@@ -193,11 +197,11 @@ public class Main {
 
 //        System.out.println("Dest Reg Number: " + firstReg.charAt(1));
 //        System.out.println("BaseReg Number : " + c.get(0));
-        StringBuilder offset = new StringBuilder();
+        String offset = "";
 
 //        for(int i=arr[1].length() - 5; i >= 0; i--){
         for (int i = 0; i <= arr[1].length() - 5; i++) {
-            offset.append( arr[1].charAt( i ) );
+            offset += arr[1].charAt(i);
         }
 //
 //        System.out.println("Offset : " + offset);
@@ -208,7 +212,7 @@ public class Main {
         int baseReg = c.get(0) - '0';
         String baseRegString = getBinary(baseReg);
 
-        offset = new StringBuilder( getBinary( Integer.parseInt( offset.toString() ) ) );
+        offset = getBinary(Integer.parseInt(offset));
 
         String opCodeString = getBinary(opCode);
 
