@@ -145,13 +145,22 @@ public class Main {
         }
 
         n = Integer.parseInt(bin3);
+        String offset = bin3;
         bin3 = Integer.toString(n, 2);
 
         bin3 = getBinary4Bits(bin3);
         String full="";
 //        String full = opBin + bin1 + bin2 + bin3;
         if (op.contains("addi") || op.contains("ori") || op.contains("andi") || op.contains("subi")){
-            full = opBin + bin2 +  bin1+bin3;
+            if(offset.charAt( 0 ) == '-'){
+                n = Integer.parseInt(offset);
+                n = 16 + n;
+                offset = Integer.toString(n, 2 );
+                full = opBin + bin2 +  bin1 + offset;
+            }
+            else{
+                full = opBin + bin2 +  bin1 + bin3;
+            }
         }
         else
             full = opBin + bin2 + bin3 + bin1;
@@ -260,8 +269,14 @@ public class Main {
 
         int reg2Num = arr[1].charAt(1) - '0';
 
+        
+        
         int offset = Integer.parseInt(arr[2]);
 
+        if(arr[2].contains( "-" )){
+            offset = 16 + offset;
+        }
+        
         int opcode = 11;
 
         String opCodeStr = getBinary(opcode);

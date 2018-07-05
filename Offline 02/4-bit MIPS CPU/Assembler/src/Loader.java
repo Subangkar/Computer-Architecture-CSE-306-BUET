@@ -31,8 +31,9 @@ public class Loader {
             str.append( st );
             str.append( "\n" );
         }
-
-        return str.toString();
+	
+	    return str.toString();
+//        return str.toString().replaceAll( "$sp","$7" );
     }
 
     static String loadLinesOfCode() {
@@ -89,7 +90,7 @@ public class Loader {
     }
 
     private static String removeComments(String string) {
-        String[] arr = string.split("//");
+        String[] arr = string.split(";");
         if (arr.length == 1) {
             return string;
         } else {
@@ -101,6 +102,7 @@ public class Loader {
         PrintWriter writer = null;
         try {
             writer = new PrintWriter(Main.outputFile, "UTF-8");
+            writer.println( "v2.0 raw" );
             for (String s : finalList) {
                 writer.println(s);
             }
