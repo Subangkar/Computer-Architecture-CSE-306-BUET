@@ -12,7 +12,7 @@ Offline03
   
   
   
-Copyrights  
+Used Simulation Softwares & Tools:   
 http://www.cburch.com/logisim/index.html  
 https://github.com/andersbll/logisim-diku  
 https://github.com/cheese3660/Logisim-Floating-Point-Library  
